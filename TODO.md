@@ -1,5 +1,5 @@
 # Meal Searcher
 
-- [ ] search meals
-- [ ] display results as a list
-- [ ] display a specific meal details page
+- [x] search meals
+- [x] display results as a list
+- [x] display a specific meal details page
