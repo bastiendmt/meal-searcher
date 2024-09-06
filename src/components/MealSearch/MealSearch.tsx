@@ -7,12 +7,11 @@ import { fetcher } from '../../utils/utils';
 const searchURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 export const MealSearch = () => {
-  // default to empty term ?
-  const [searchParams, setSearchParam] = useSearchParams('salmon');
+  const [searchParams, setSearchParam] = useSearchParams('');
 
   const searchTerm = searchParams.get('s');
 
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const debouncedSearchTerm = useDebounce(searchTerm, 500) ?? '';
 
   // fetch if no term ?
   const { isLoading, error, data } = useSWR<MealDetailsResponse>(

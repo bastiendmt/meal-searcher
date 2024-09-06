@@ -1,11 +1,11 @@
 import useSWR from 'swr';
 import { fetcher } from '../../utils/utils';
 import { MealDetailsResponse } from '../../types/types';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const MealDetails = () => {
   const { mealID } = useParams();
-  // const mealID = '52772';
+  const navigate = useNavigate();
   const mealURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID}`;
 
   const { isLoading, error, data } = useSWR<MealDetailsResponse>(
@@ -29,6 +29,7 @@ export const MealDetails = () => {
 
   return (
     <div className='mealDetails'>
+      <button onClick={() => navigate(-1)}>Back to Results</button>
       <h2>{mealDetails.strMeal}</h2>
       <div>
         <i>{mealDetails.strCategory}</i> - <span>{mealDetails.strArea}</span>
