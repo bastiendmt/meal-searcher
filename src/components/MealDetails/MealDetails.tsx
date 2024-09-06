@@ -1,10 +1,13 @@
 import useSWR from 'swr';
-import { fetcher } from './utils/utils';
-import { MealDetailsResponse } from './types/types';
+import { fetcher } from '../../utils/utils';
+import { MealDetailsResponse } from '../../types/types';
 
 export const MealDetails = () => {
+  const mealID = '52772';
+  const mealURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID}`;
+
   const { isLoading, error, data } = useSWR<MealDetailsResponse>(
-    'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772',
+    mealURL,
     fetcher
   );
 
@@ -23,7 +26,7 @@ export const MealDetails = () => {
     .filter((ingredient) => ingredient !== '' && ingredient !== null);
 
   return (
-    <div>
+    <div className='mealDetails'>
       <h2>{mealDetails.strMeal}</h2>
       <div>
         <i>{mealDetails.strCategory}</i> - <span>{mealDetails.strArea}</span>
@@ -33,18 +36,28 @@ export const MealDetails = () => {
         src={mealDetails.strMealThumb}
         alt={mealDetails.strMeal}
         height={250}
+        style={{ borderRadius: '20px' }}
       />
+
+      <h3>Tags</h3>
+      <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
+        {mealDetails.strTags.split(',').map((tag) => (
+          <span key={tag}>{tag}</span>
+        ))}
+      </div>
 
       <h3>Preparation</h3>
       <h4>Ingredients</h4>
       <ul>
         {ingredients.map((ingredient) => (
-          <li key={ingredient}>{ingredient}</li>
+          <li key={ingredient} style={{ textAlign: 'left' }}>
+            {ingredient}
+          </li>
         ))}
       </ul>
 
       <h4>Instructions</h4>
-      <p>{mealDetails.strInstructions}</p>
+      <p style={{ textAlign: 'justify' }}>{mealDetails.strInstructions}</p>
 
       <h4>Video</h4>
       {mealDetails.strYoutube ? (
