@@ -1,4 +1,4 @@
-# Meal projet
+# Meal project
 
 This project is a small technical test to display meals. It uses https://www.themealdb.com/api.php to fetch meals and display them.
 
