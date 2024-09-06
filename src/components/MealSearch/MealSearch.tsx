@@ -1,4 +1,4 @@
-import { useDebounce } from '@uidotdev/usehooks';
+import { useDebounce, useLocalStorage } from '@uidotdev/usehooks';
 import { Link, useSearchParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { MealDetails, MealDetailsResponse } from '../../types/types';
@@ -50,20 +50,38 @@ export const MealSearch = () => {
   );
 };
 
-const MealItem = ({ meal }: { meal: MealDetails }) => (
-  <Link
-    key={meal.idMeal}
-    style={{
-      flexBasis: 'calc(33.33% - 16px)',
-      border: '1px solid grey',
-      borderRadius: '5px',
-      padding: '8px',
-      boxSizing: 'border-box',
-    }}
-    to={`/meal/${meal.idMeal}`}
-  >
-    <strong>{meal.strMeal}</strong>
-    <p>{meal.strCategory}</p>
-    <img src={meal.strMealThumb} alt={meal.strMeal} height={100} />
-  </Link>
-);
+const MealItem = ({ meal }: { meal: MealDetails }) => {
+  const [isFavorite, saveFavorite] = useLocalStorage(
+    `fav-${meal.idMeal}`,
+    false
+  );
+
+  return (
+    <div
+      key={meal.idMeal}
+      style={{
+        flexBasis: 'calc(33.33% - 16px)',
+        border: '1px solid grey',
+        borderRadius: '5px',
+        padding: '8px',
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px',
+      }}
+    >
+      <button
+        onClick={() => {
+          saveFavorite((prev) => !prev);
+        }}
+      >
+        {isFavorite ? '⭐' : 'Add to favorites'}
+      </button>
+      <Link to={`/meal/${meal.idMeal}`}>
+        <strong>{meal.strMeal}</strong>
+        <p>{meal.strCategory}</p>
+        <img src={meal.strMealThumb} alt={meal.strMeal} height={100} />
+      </Link>
+    </div>
+  );
+};
