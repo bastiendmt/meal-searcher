@@ -1,15 +1,17 @@
 import { useDebounce } from '@uidotdev/usehooks';
-import { useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import useSWR from 'swr';
-import { fetcher } from '../../utils/utils';
 import { MealDetails, MealDetailsResponse } from '../../types/types';
-import { Link } from 'react-router-dom';
+import { fetcher } from '../../utils/utils';
 
 const searchURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 export const MealSearch = () => {
   // default to empty term ?
-  const [searchTerm, setSearchTerm] = useState('salmon');
+  const [searchParams, setSearchParam] = useSearchParams('salmon');
+
+  const searchTerm = searchParams.get('s');
+
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   // fetch if no term ?
@@ -23,8 +25,8 @@ export const MealSearch = () => {
       <h2>Search meals</h2>
       <input
         type='text'
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        value={searchTerm ?? ''}
+        onChange={(e) => setSearchParam({ s: e.target.value })}
         placeholder='beef, salmon, vegan...'
       />
 
