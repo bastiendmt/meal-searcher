@@ -1,9 +1,11 @@
 import useSWR from 'swr';
 import { fetcher } from '../../utils/utils';
 import { MealDetailsResponse } from '../../types/types';
+import { useParams } from 'react-router-dom';
 
 export const MealDetails = () => {
-  const mealID = '52772';
+  const { mealID } = useParams();
+  // const mealID = '52772';
   const mealURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID}`;
 
   const { isLoading, error, data } = useSWR<MealDetailsResponse>(
@@ -41,7 +43,7 @@ export const MealDetails = () => {
 
       <h3>Tags</h3>
       <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
-        {mealDetails.strTags.split(',').map((tag) => (
+        {mealDetails.strTags?.split(',').map((tag) => (
           <span key={tag}>{tag}</span>
         ))}
       </div>

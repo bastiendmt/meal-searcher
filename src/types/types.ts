@@ -10,7 +10,7 @@ export type MealDetails = {
   strArea: string;
   strInstructions: string;
   strMealThumb: string;
-  strTags: string;
+  strTags?: string;
   strYoutube: string;
   strIngredient1: string;
   strIngredient2: string;

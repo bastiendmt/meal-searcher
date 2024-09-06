@@ -3,6 +3,7 @@ import { useState } from 'react';
 import useSWR from 'swr';
 import { fetcher } from '../../utils/utils';
 import { MealDetails, MealDetailsResponse } from '../../types/types';
+import { Link } from 'react-router-dom';
 
 const searchURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
@@ -10,8 +11,6 @@ export const MealSearch = () => {
   // default to empty term ?
   const [searchTerm, setSearchTerm] = useState('salmon');
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
-
-  console.log(debouncedSearchTerm);
 
   // fetch if no term ?
   const { isLoading, error, data } = useSWR<MealDetailsResponse>(
@@ -50,7 +49,7 @@ export const MealSearch = () => {
 };
 
 const MealItem = ({ meal }: { meal: MealDetails }) => (
-  <div
+  <Link
     key={meal.idMeal}
     style={{
       flexBasis: 'calc(33.33% - 16px)',
@@ -59,9 +58,10 @@ const MealItem = ({ meal }: { meal: MealDetails }) => (
       padding: '8px',
       boxSizing: 'border-box',
     }}
+    to={`/meal/${meal.idMeal}`}
   >
     <strong>{meal.strMeal}</strong>
     <p>{meal.strCategory}</p>
     <img src={meal.strMealThumb} alt={meal.strMeal} height={100} />
-  </div>
+  </Link>
 );

@@ -1,14 +1,22 @@
+import { BrowserRouter, Route, Link, Routes } from 'react-router-dom';
 import './App.css';
 import { MealDetails } from './components/MealDetails/MealDetails';
 import { MealSearch } from './components/MealSearch/MealSearch';
 
 function App() {
   return (
-    <>
-      <h1>Meal Searcher</h1>
-      {/* <MealDetails /> */}
-      <MealSearch />
-    </>
+    <BrowserRouter>
+      <div>
+        <nav>
+          <Link to='/'>Home</Link>
+        </nav>
+
+        <Routes>
+          <Route path='/meal/:mealID' element={<MealDetails />}></Route>
+          <Route path='/' element={<MealSearch />}></Route>
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
