@@ -3,12 +3,15 @@ import './App.css';
 import { MealDetails } from './components/MealDetails/MealDetails';
 import { MealSearch } from './components/MealSearch/MealSearch';
 
+export const MEALS_URL = '/';
+export const MEAL_DETAILS_URL = '/meal/:mealID';
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/meal/:mealID' element={<MealDetails />}></Route>
-        <Route path='/' element={<MealSearch />}></Route>
+        <Route path={MEAL_DETAILS_URL} element={<MealDetails />}></Route>
+        <Route path={MEALS_URL} element={<MealSearch />}></Route>
       </Routes>
     </BrowserRouter>
   );

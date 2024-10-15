@@ -1,8 +1,9 @@
 import { useDebounce, useLocalStorage } from '@uidotdev/usehooks';
-import { Link, useSearchParams } from 'react-router-dom';
+import { generatePath, Link, useSearchParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { MealDetails, MealDetailsResponse } from '../../types/types';
 import { fetcher } from '../../utils/utils';
+import { MEAL_DETAILS_URL } from '../../App';
 
 const searchURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
@@ -76,7 +77,11 @@ const MealItem = ({ meal }: { meal: MealDetails }) => {
       >
         {isFavorite ? '⭐' : 'Add to favorites'}
       </button>
-      <Link to={`/meal/${meal.idMeal}`}>
+      <Link
+        to={generatePath(MEAL_DETAILS_URL, {
+          mealID: meal.idMeal,
+        })}
+      >
         <strong>{meal.strMeal}</strong>
         <p>{meal.strCategory}</p>
         <img src={meal.strMealThumb} alt={meal.strMeal} height={100} />
