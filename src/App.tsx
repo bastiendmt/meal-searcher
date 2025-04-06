@@ -10,8 +10,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={MEAL_DETAILS_URL} element={<MealDetails />}></Route>
-        <Route path={MEALS_URL} element={<MealSearch />}></Route>
+        <Route path={MEAL_DETAILS_URL} element={<MealDetails />} />
+        <Route path={MEALS_URL} element={<MealSearch />} />
       </Routes>
     </BrowserRouter>
   );

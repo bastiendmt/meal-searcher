@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import { fetcher } from '../../utils/utils';
-import { MealDetailsResponse } from '../../types/types';
+import type { MealDetailsResponse } from '../../types/types';
 import { useNavigate, useParams } from 'react-router-dom';
 
 export const MealDetails = () => {
@@ -28,8 +28,10 @@ export const MealDetails = () => {
     .filter((ingredient) => ingredient !== '' && ingredient !== null);
 
   return (
-    <div className='mealDetails'>
-      <button onClick={() => navigate(-1)}>Back to Results</button>
+    <div className="mealDetails">
+      <button type="button" onClick={() => navigate(-1)}>
+        Back to Results
+      </button>
       <h2>{mealDetails.strMeal}</h2>
       <div>
         <i>{mealDetails.strCategory}</i> - <span>{mealDetails.strArea}</span>
