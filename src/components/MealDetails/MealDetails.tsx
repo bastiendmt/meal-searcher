@@ -18,7 +18,7 @@ export const MealDetails = () => {
   if (error)
     return <div>Error while loading meal details: {error.message}</div>;
 
-  const mealDetails = data?.meals[0];
+  const mealDetails = data?.meals?.[0];
   if (!mealDetails) return <div>No meal details found</div>;
 
   /** Filter out ingredients that are empty or null */
